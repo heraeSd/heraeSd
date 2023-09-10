@@ -2,7 +2,7 @@ if game.CoreGui:FindFirstChild("HeraeSd") then
     game.CoreGui.HeraeSd:Destroy()
 end
 
-local Neverlose_Main = {
+local HeraeSd_Main = {
     Settings = {
         CloseBind = "RightControl",
     },
