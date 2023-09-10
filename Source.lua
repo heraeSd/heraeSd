@@ -1,5 +1,5 @@
-if game.CoreGui:FindFirstChild("Neverlose1") then
-    game.CoreGui.Neverlose1:Destroy()
+if game.CoreGui:FindFirstChild("HeraeSd") then
+    game.CoreGui.HeraeSd:Destroy()
 end
 
 local Neverlose_Main = {
@@ -53,7 +53,7 @@ if not getgenv()[GenerateGUID] then
     getgenv()[GenerateGUID] = false
 end
 
-function Neverlose_Main:PlaySound(SoundID)
+function HeraeSd_Main:PlaySound(SoundID)
     local sound = Instance.new("Sound")
     sound.SoundId = SoundID
     sound.Looped = false
@@ -121,13 +121,13 @@ local function MakeDraggable(topbarobject, object)
     )
    end
 
-local Neverlose = Instance.new("ScreenGui")
-Neverlose.Name = "Neverlose1"
-Neverlose.Parent = game.CoreGui
-Neverlose.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+local HeraeSd = Instance.new("ScreenGui")
+HeraeSd.Name = "HeraeSd"
+HeraeSd.Parent = game.CoreGui
+HeraeSd.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 -- this function converts a string to base64
-function Neverlose_Main:encode(data)
+function HeraeSd_Main:encode(data)
     local b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
     return ((data:gsub('.', function(x) 
         local r,b='',x:byte()
@@ -142,7 +142,7 @@ function Neverlose_Main:encode(data)
 end
  
 -- this function converts base64 to string
-function Neverlose_Main:decode(data)
+function HeraeSd_Main:decode(data)
     local b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
     data = string.gsub(data, '[^'..b..'=]', '')
     return (data:gsub('.', function(x)
@@ -158,7 +158,7 @@ function Neverlose_Main:decode(data)
     end))
 end
 
-function Neverlose_Main:GetDistance(Endpoint)
+function HeraeSd_Main:GetDistance(Endpoint)
     local HumanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
     if typeof(Endpoint) == "Instance" then
         Endpoint = Vector3.new(Endpoint.Position.X, HumanoidRootPart.Position.Y, Endpoint.Position.Z)
@@ -169,7 +169,7 @@ function Neverlose_Main:GetDistance(Endpoint)
     return Magnitude
 end
 
-function Neverlose_Main:GetPlayerImage(ID)
+function HeraeSd_Main:GetPlayerImage(ID)
     local width = 420
     local height = 420
     local format = "png"
@@ -185,21 +185,21 @@ function Neverlose_Main:GetPlayerImage(ID)
     return imageUrl
 end
 
-function Neverlose_Main:SetCFG(name)
+function HeraeSd_Main:SetCFG(name)
     Neverlose_Main.Targeted_Config = name
 end
 
-function Neverlose_Main:LoadSettings(Folder, CFGName)
+function HeraeSd_Main:LoadSettings(Folder, CFGName)
 
     local Encoded = readfile(Folder .. "/settings.txt")
-    local Decoded = Neverlose_Main:decode(Encoded)
+    local Decoded = HeraeSd_Main:decode(Encoded)
 
     writefile(Folder .. "/settings.txt", tostring(HttpService:JSONEncode(Decoded)))
 
-    Neverlose_Main.Settings = HttpService:JSONDecode(readfile(Folder .. "/settings.txt"))
+    HeraeSd_Main.Settings = HttpService:JSONDecode(readfile(Folder .. "/settings.txt"))
 end
 
-function Neverlose_Main:AutoJoinDiscord(DiscordCode)
+function HeraeSd_Main:AutoJoinDiscord(DiscordCode)
     local req = (syn and syn.request) or (http and http.request) or http_request
     if req then
         req({
@@ -222,7 +222,7 @@ function ChangeTypeText(object)
     TweenService:Create(
         object,
     TweenInfo.new(.3, Enum.EasingStyle.Quad),
-    {TextColor3 = Neverlose_Main.Theme.Custom.Text}
+    {TextColor3 = HeraeSd_Main.Theme.Custom.Text}
 ):Play()
 end
 
@@ -230,11 +230,11 @@ function ChangeTypeElement(object)
     TweenService:Create(
         object,
         TweenInfo.new(.3, Enum.EasingStyle.Quad),
-        {BackgroundColor3 = Neverlose_Main.Theme.Custom.Element}
+        {BackgroundColor3 = HeraeSd_Main.Theme.Custom.Element}
     ):Play()
 end
 
-function Neverlose_Main:Window(config)
+function HeraeSd_Main:Window(config)
     local FirstTab, SettingsToggled = false, false
     local title = config.Title
     local Folder1 = config.CFG
@@ -247,7 +247,7 @@ function Neverlose_Main:Window(config)
 
     local Folder = tostring(Folder1)
 
-    function Neverlose_Main:GetConfigNames()
+    function HeraeSd_Main:GetConfigNames()
         local ReturnTable = {}
         local ListScripts = listfiles(Folder.."/configs")
         for i,v in pairs(ListScripts) do
@@ -276,12 +276,12 @@ function Neverlose_Main:Window(config)
 
     if not isfile(Folder .. "/settings.txt") then
         local content = {}
-        for i,v in pairs(Neverlose_Main.Settings) do
+        for i,v in pairs(HeraeSd_Main.Settings) do
             content[i] = v
         end
         writefile(Folder .. "/settings.txt", tostring(HttpService:JSONEncode(content)))
     end
-    Neverlose_Main.Settings = HttpService:JSONDecode(readfile(Folder .. "/settings.txt"))
+    HeraeSd_Main.Settings = HttpService:JSONDecode(readfile(Folder .. "/settings.txt"))
 
 
 
@@ -292,7 +292,7 @@ function Neverlose_Main:Window(config)
             return rd
         end
         local content = {}
-        for i,v in pairs(Neverlose_Main.Settings) do
+        for i,v in pairs(HeraeSd_Main.Settings) do
             content[i] = v
         end
         -- writefile(Folder .. "/settings.txt", tostring(HttpService:JSONEncode(Neverlose_Main:encode(content))))
@@ -302,7 +302,7 @@ function Neverlose_Main:Window(config)
 
     function SaveSettingsCFG(cfg)
         local content = {}
-        for i, v in pairs(Neverlose_Main.SettingsFlags) do
+        for i, v in pairs(HeraeSd_Main.SettingsFlags) do
             content[i] = v.Value
         end
     
@@ -318,9 +318,9 @@ function Neverlose_Main:Window(config)
         local JSONData = game:GetService("HttpService"):JSONDecode(Encoded) -- Use HttpService
     
         for a, b in pairs(JSONData) do
-            if Neverlose_Main.SettingsFlags[a] then
+            if HeraeSd_Main.SettingsFlags[a] then
                 spawn(function()
-                    Neverlose_Main.SettingsFlags[a]:Set(b)
+                    HeraeSd_Main.SettingsFlags[a]:Set(b)
                 end)
             else
                 warn("Error ", a, b)
@@ -333,9 +333,9 @@ function Neverlose_Main:Window(config)
     
         local JSONData = game:GetService("HttpService"):JSONDecode(Encoded) -- Use HttpService
     
-        if Neverlose_Main.SettingsFlags[Name] then
+        if HeraeSd_Main.SettingsFlags[Name] then
             spawn(function()
-                Neverlose_Main.SettingsFlags[Name]:Set(newvalue)
+                HeraeSd_Main.SettingsFlags[Name]:Set(newvalue)
             end)
         end
     end
@@ -491,12 +491,12 @@ function Neverlose_Main:Window(config)
         end
 
         SetupSystemToggle.MouseButton1Click:Connect(function()
-            Neverlose_Main:PlaySound(Neverlose_Main.Lib_Sounds.ClickSound)
+            HeraeSd_Main:PlaySound(HeraeSd_Main.Lib_Sounds.ClickSound)
             SToggled = not SToggled
             SystemTogglefunc:Set(SToggled)
         end)
 
-        Neverlose_Main.SettingsFlags[title] = SystemTogglefunc
+        HeraeSd_Main.SettingsFlags[title] = SystemTogglefunc
         return SystemTogglefunc
     end
     local HasBeenToggled = false
@@ -512,7 +512,7 @@ function Neverlose_Main:Window(config)
         while wait() do
             if RememberKey == false and HasBeenToggled == false then
                 pcall(function()
-                    EditSettingsCFG("KeyNeverlose", "Key Holder", "")
+                    EditSettingsCFG("KeyHeraeSd", "Key Holder", "")
                 end)
             end
         end
@@ -561,7 +561,7 @@ function Neverlose_Main:Window(config)
             KeyBoxfunc:Set(KeyText)
         end)
 
-        Neverlose_Main.SettingsFlags[title] = KeyBoxfunc
+        HeraeSd_Main.SettingsFlags[title] = KeyBoxfunc
         return KeyBoxfunc
     end
 
@@ -804,7 +804,7 @@ function Neverlose_Main:Window(config)
 
 
     MainFrame.Name = "MainFrame"
-    MainFrame.Parent = Neverlose
+    MainFrame.Parent = HeraeSd
     MainFrame.BackgroundColor3 = Color3.fromRGB(9, 9, 13)
     MainFrame.BorderColor3 = Color3.fromRGB(9, 9, 13)
     MainFrame.BorderSizePixel = 0
@@ -851,7 +851,7 @@ function Neverlose_Main:Window(config)
     PlayerImage.BorderSizePixel = 0
     PlayerImage.Position = UDim2.new(0.0643564388, 0, 9, 0)
     PlayerImage.Size = UDim2.new(0, 44, 0, 44)
-    PlayerImage.Image = Neverlose_Main:GetPlayerImage(Player.UserId)
+    PlayerImage.Image = HeraeSd_Main:GetPlayerImage(Player.UserId)
     
     PlayerImageCorner.CornerRadius = UDim.new(1, 0)
     PlayerImageCorner.Name = "PlayerImageCorner"
@@ -1314,7 +1314,7 @@ function Neverlose_Main:Window(config)
     end
 
     spawn(function()
-    Neverlose_Main:Notify({
+    HeraeSd_Main:Notify({
         Title = "Welcome",
         Text = "Welcome | ".. game.Players.LocalPlayer.Name,
         Time = 2
@@ -1508,7 +1508,7 @@ function Neverlose_Main:Window(config)
     Original.MouseButton1Click:Connect(function()
         
         StyleStroke.Parent = Original
-        Neverlose_Main:Notify({
+        HeraeSd_Main:Notify({
             Title = "Settings",
             Text = "Feature still in Testing!",
             Time = 2,
@@ -1536,7 +1536,7 @@ function Neverlose_Main:Window(config)
     White.MouseButton1Click:Connect(function()
         
         StyleStroke.Parent = White
-        Neverlose_Main:Notify({
+        HeraeSd_Main:Notify({
             Title = "Settings",
             Text = "Feature still in Testing!",
             Time = 2,
@@ -1564,7 +1564,7 @@ function Neverlose_Main:Window(config)
     Black.MouseButton1Click:Connect(function()
         
         StyleStroke.Parent = Black
-        Neverlose_Main:Notify({
+        HeraeSd_Main:Notify({
             Title = "Settings",
             Text = "Feature still in Testing!",
             Time = 2,
@@ -1621,7 +1621,7 @@ function Neverlose_Main:Window(config)
     BindsOn.MouseButton1Click:Connect(function()
         
         BindsStroke.Parent = BindsOn
-        Neverlose_Main:Notify({
+        HeraeSd_Main:Notify({
             Title = "Settings",
             Text = "Binds ON!",
             Time = 2,
@@ -1650,7 +1650,7 @@ function Neverlose_Main:Window(config)
     BindsOff.MouseButton1Click:Connect(function()
         
         BindsStroke.Parent = BindsOff
-        Neverlose_Main:Notify({
+        HeraeSd_Main:Notify({
             Title = "Settings",
             Text = "Binds OFF!",
             Time = 2,
@@ -2075,14 +2075,14 @@ function Neverlose_Main:Window(config)
                             wait(1)
                             loadfile(v)()
                         end)
-                        Neverlose_Main:Notify({
+                        HeraeSd_Main:Notify({
                             Title = "Settings",
                             Text = file_name_without_extension.." loaded",
                             Time = 2,
                             AutoClose = true
                         })
                         if goo == false then
-                            Neverlose_Main:Notify({
+                            HeraeSd_Main:Notify({
                                 Title = "Settings",
                                 Text = "Error: "..file_name_without_extension..bad,
                                 Time = 2,
@@ -2109,7 +2109,7 @@ function Neverlose_Main:Window(config)
                                 v:Destroy()
                             end
                         end
-                        Neverlose_Main:Notify({
+                        HeraeSd_Main:Notify({
                             Title = "Settings",
                             Text = file_name_without_extension.." Unloaded",
                             Time = 2,
@@ -2196,7 +2196,7 @@ function Neverlose_Main:Window(config)
         
                 DeleteLua.MouseButton1Click:Connect(function()
                     
-                    Neverlose_Main:Notify({
+                    HeraeSd_Main:Notify({
                         Title = "Settings",
                         Text = "Deleted Script!",
                         Time = 2,
@@ -2213,7 +2213,7 @@ function Neverlose_Main:Window(config)
                             v:Destroy()
                         end
                     end
-                    Neverlose_Main:Notify({
+                    HeraeSd_Main:Notify({
                         Title = "Settings",
                         Text = file_name_without_extension.." Unloaded",
                         Time = 2,
@@ -2238,7 +2238,7 @@ function Neverlose_Main:Window(config)
         
                 EditScript.MouseButton1Click:Connect(function()
                     
-                    Neverlose_Main:Notify({
+                    HeraeSd_Main:Notify({
                         Title = "Settings",
                         Text = "Still in Testing!",
                         Time = 2,
@@ -2259,7 +2259,7 @@ function Neverlose_Main:Window(config)
         
                 ShareScript.MouseButton1Click:Connect(function()
                     
-                    Neverlose_Main:Notify({
+                    HeraeSd_Main:Notify({
                         Title = "Settings",
                         Text = "Copied to clipboard!",
                         Time = 2,
@@ -2351,14 +2351,14 @@ function Neverlose_Main:Window(config)
                         wait(1)
                         loadfile(v)()
                     end)
-                    Neverlose_Main:Notify({
+                    HeraeSd_Main:Notify({
                         Title = "Settings",
                         Text = file_name_without_extension.." loaded",
                         Time = 2,
                         AutoClose = true
                     })
                     if goo == false then
-                        Neverlose_Main:Notify({
+                        HeraeSd_Main:Notify({
                             Title = "Settings",
                             Text = "Error: "..file_name_without_extension..bad,
                             Time = 2,
@@ -2385,7 +2385,7 @@ function Neverlose_Main:Window(config)
                             v:Destroy()
                         end
                     end
-                    Neverlose_Main:Notify({
+                    HeraeSd_Main:Notify({
                         Title = "Settings",
                         Text = file_name_without_extension.." Unloaded",
                         Time = 2,
@@ -2473,7 +2473,7 @@ function Neverlose_Main:Window(config)
     
             DeleteLua.MouseButton1Click:Connect(function()
                 
-                Neverlose_Main:Notify({
+                HeraeSd_Main:Notify({
                     Title = "Settings",
                     Text = "Deleted Script!",
                     Time = 2,
@@ -2491,7 +2491,7 @@ function Neverlose_Main:Window(config)
                         v:Destroy()
                     end
                 end
-                Neverlose_Main:Notify({
+                HeraeSd_Main:Notify({
                     Title = "Settings",
                     Text = file_name_without_extension.." Unloaded",
                     Time = 2,
@@ -2515,7 +2515,7 @@ function Neverlose_Main:Window(config)
     
             EditScript.MouseButton1Click:Connect(function()
                 
-                Neverlose_Main:Notify({
+                HeraeSd_Main:Notify({
                     Title = "Settings",
                     Text = "Still in Testing!",
                     Time = 2,
@@ -2536,7 +2536,7 @@ function Neverlose_Main:Window(config)
     
             ShareScript.MouseButton1Click:Connect(function()
                 
-                Neverlose_Main:Notify({
+                HeraeSd_Main:Notify({
                     Title = "Settings",
                     Text = "Copied to clipboard!",
                     Time = 2,
@@ -2546,7 +2546,7 @@ function Neverlose_Main:Window(config)
                 setclipboard(readedfile)
             end)
             ShareScript.MouseEnter:Connect(function()
-                Neverlose_Main:PlaySound(Neverlose_Main.Lib_Sounds.HoverSound)
+                HeraeSd_Main:PlaySound(HeraeSd_Main.Lib_Sounds.HoverSound)
             end)
         end
         
@@ -2583,8 +2583,8 @@ function Neverlose_Main:Window(config)
             ChatFrame.Visible = false
             -- SettingsFrame.Visible = false
             -- SettingsToggled = false
-            Neverlose_Main:Notify({
-                Title = "Neverlose",
+            HeraeSd_Main:Notify({
+                Title = "HeraeSd",
                 Text = "Feature Temporarily Disabled!"
             })
         end)
@@ -2914,7 +2914,7 @@ function Neverlose_Main:Window(config)
         TabsSectionLayout.SortOrder = Enum.SortOrder.LayoutOrder
         TabsSectionLayout.Padding = UDim.new(0, 4)
 
-        -- function Neverlose_Main:LoadCfg(cfg)
+        -- function HeraeSd_Main:LoadCfg(cfg)
         --     local Encoded = readfile(Folder1 .. "/configs/" .. cfg .. ".txt")
         --     local Decoded = Neverlose_Main:decode(Encoded)
             
@@ -2927,7 +2927,7 @@ function Neverlose_Main:Window(config)
         --         print(a,b)
         --     if Neverlose_Main.Flags[a] then
         --         spawn(function()
-        --           Neverlose_Main.Flags[a]:Set(b)
+        --           HeraeSd_Main.Flags[a]:Set(b)
         --        end)
         --     else
         --         warn("Error ", a,b)
@@ -2935,15 +2935,15 @@ function Neverlose_Main:Window(config)
         -- end)
         -- end
         
-        -- function Neverlose_Main:SaveCfg(cfg)
+        -- function HeraeSd_Main:SaveCfg(cfg)
         --     local content = {}
         --     for i,v in pairs(Neverlose_Main.Flags) do
         --         content[i] = v.Value
         --     end
-        --     writefile(Folder1.."/configs/"..cfg..".txt", Neverlose_Main:encode(tostring(HttpService:JSONEncode(content)))) -- FolderName.."/configs/"..name..".cfg"
+        --     writefile(Folder1.."/configs/"..cfg..".txt", HeraeSd_Main:encode(tostring(HttpService:JSONEncode(content)))) -- FolderName.."/configs/"..name..".cfg"
         -- end
       
-        -- function Neverlose_Main:CreateCfg(cfg)
+        -- function HeraeSd_Main:CreateCfg(cfg)
         --     local content = {}
         --     for i,v in pairs(Neverlose_Main.Flags) do
         --         content[i] = v.Value
@@ -2952,7 +2952,7 @@ function Neverlose_Main:Window(config)
         --     -- writefile("Neverlose/configs/Mana64.txt", Neverlose_Main:encode(tostring(content)))
         -- end
 
-        function Neverlose_Main:LoadCfg(cfg)
+        function HeraeSd_Main:LoadCfg(cfg)
             local Encoded = readfile(Folder1 .. "/configs/" .. cfg .. ".txt")
 
             local JSONData = HttpService:JSONDecode(Encoded)
@@ -2968,9 +2968,9 @@ function Neverlose_Main:Window(config)
             end)
         end
         
-        function Neverlose_Main:SaveCfg(cfg)
+        function HeraeSd_Main:SaveCfg(cfg)
             local content = {}
-            for i, v in pairs(Neverlose_Main.Flags) do
+            for i, v in pairs(HeraeSd_Main.Flags) do
                 content[i] = v.Value
             end
             
@@ -2979,7 +2979,7 @@ function Neverlose_Main:Window(config)
             writefile(Folder1 .. "/configs/" .. cfg .. ".txt", Encoded)
         end
         
-        function Neverlose_Main:CreateCfg(cfg)
+        function HeraeSd_Main:CreateCfg(cfg)
             local content = {}
             for i, v in pairs(Neverlose_Main.Flags) do
                 content[i] = v.Value
@@ -2998,12 +2998,12 @@ function Neverlose_Main:Window(config)
                     AutoClose = true
                 })
             else
-                Neverlose_Main:Notify({Title = "Neverlose",
+                HeraeSd_Main:Notify({Title = "Neverlose",
                     Text = "Saved to: "..tostring(Neverlose_Main.Targeted_Config),
                     Time = 2,
                     AutoClose = true
                 })
-                Neverlose_Main:SaveCfg(tostring(Neverlose_Main.Targeted_Config))
+               HeraeSd_Main:SaveCfg(tostring(Neverlose_Main.Targeted_Config))
             end
         end)
 
@@ -3242,7 +3242,7 @@ function Neverlose_Main:Window(config)
                             TweenService:Create(
                                 Section,
                                 TweenInfo.new(.3, Enum.EasingStyle.Quad),
-                                {BackgroundColor3 = Neverlose_Main.Theme.Custom.Section}
+                                {BackgroundColor3 = HeraeSd_Main.Theme.Custom.Section}
                             ):Play()
                         end)
                     end
@@ -3325,7 +3325,7 @@ function Neverlose_Main:Window(config)
                         while task.wait() do
                             pcall(function()
                                 ChangeTypeText(ButtonTitle)
-                                ButtonStroke.Color = Neverlose_Main.Theme.Custom.Element
+                                ButtonStroke.Color = HeraeSd_Main.Theme.Custom.Element
                             end)
                         end
                     end)
@@ -3353,7 +3353,7 @@ function Neverlose_Main:Window(config)
                         ):Play()
                     end)
                     Button.MouseButton1Click:Connect(function()
-                        Neverlose_Main:PlaySound(Neverlose_Main.Lib_Sounds.ClickSound)
+                        Neverlose_Main:PlaySound(HeraeSd_Main.Lib_Sounds.ClickSound)
                         pcall(callback)
                     end)
                     Section.Size = UDim2.new(0, 285, 0, SectionLayout.AbsoluteContentSize.Y + 10)
@@ -3534,7 +3534,7 @@ function Neverlose_Main:Window(config)
                     end
 
                     Toggle.MouseButton1Click:Connect(function()
-                        Neverlose_Main:PlaySound(Neverlose_Main.Lib_Sounds.ClickSound)
+                        Neverlose_Main:PlaySound(HeraeSd_Main.Lib_Sounds.ClickSound)
                         Toggled = not Toggled
                         Togglefunc:Set(Toggled)
                         if Toggled then
@@ -3560,7 +3560,7 @@ function Neverlose_Main:Window(config)
                         end
                     end)
 
-                    Neverlose_Main.Flags[title] = Togglefunc
+                    HeraeSd_Main.Flags[title] = Togglefunc
                     return Togglefunc
                 end
 
@@ -3733,13 +3733,13 @@ function Neverlose_Main:Window(config)
                         while task.wait() do
                             pcall(function()
                                 ChangeTypeText(DropdownTitle)
-                                Arrow.ImageColor3 = Neverlose_Main.Theme.Custom.Element
+                                Arrow.ImageColor3 = HeraeSd_Main.Theme.Custom.Element
                             end)
                         end
                     end)
 
                     Dropdown.MouseButton1Click:Connect(function()
-                        Neverlose_Main:PlaySound(Neverlose_Main.Lib_Sounds.ClickSound)
+                        Neverlose_Main:PlaySound(HeraeSd_Main.Lib_Sounds.ClickSound)
                         if DropToggled == false then
                             DropdownFrameHold.Visible = true
                             TweenService:Create(
@@ -3865,7 +3865,7 @@ function Neverlose_Main:Window(config)
                             DropdownHolderPadding.PaddingTop = UDim.new(0, 1)
     
                             Item.MouseButton1Click:Connect(function()
-                                Neverlose_Main:PlaySound(Neverlose_Main.Lib_Sounds.ClickSound)
+                                Neverlose_Main:PlaySound(HeraeSd_Main.Lib_Sounds.ClickSound)
                                 Dropfunc:Set(v)
                                 TweenService:Create(
                                     DropdownFrameHold,
@@ -3887,7 +3887,7 @@ function Neverlose_Main:Window(config)
                         end
                     end
 
-                    Neverlose_Main.Flags[title] = Dropfunc
+                    HeraeSd_Main.Flags[title] = Dropfunc
                     return Dropfunc
                 end
 
@@ -4359,7 +4359,7 @@ function Neverlose_Main:Window(config)
                                 TweenService:Create(
                                     ColorPFrameGlow,
                                     TweenInfo.new(.4, Enum.EasingStyle.Quad),
-                                    {ImageColor3 = Neverlose_Main.Theme.Custom.Glow}
+                                    {ImageColor3 = HeraeSd_Main.Theme.Custom.Glow}
                                 ):Play()
                             end)
                         end
@@ -4778,7 +4778,7 @@ function Neverlose_Main:Window(config)
                         end
                      )
                      
-                    Neverlose_Main.Flags[title] = Colorpickerfunc
+                    HeraeSd_Main.Flags[title] = Colorpickerfunc
                     return Colorpickerfunc
                 end
 
@@ -5773,7 +5773,7 @@ function Neverlose_Main:Window(config)
                             TweenService:Create(
                                 BModeToggle,
                                 TweenInfo.new(.3, Enum.EasingStyle.Quad),
-                                {BackgroundColor3 = Neverlose_Main.Theme.Custom.Element}
+                                {BackgroundColor3 = HeraeSd_Main.Theme.Custom.Element}
                             ):Play()
     
                             TweenService:Create(
@@ -5789,7 +5789,7 @@ function Neverlose_Main:Window(config)
                             TweenService:Create(
                                 BModeToggle,
                                 TweenInfo.new(.3, Enum.EasingStyle.Quad),
-                                {BackgroundColor3 = Neverlose_Main.Theme.Custom.Element}
+                                {BackgroundColor3 = HeraeSd_Main.Theme.Custom.Element}
                             ):Play()
     
                             TweenService:Create(
@@ -5806,7 +5806,7 @@ function Neverlose_Main:Window(config)
                             TweenService:Create(
                                 BModeHold,
                                 TweenInfo.new(.3, Enum.EasingStyle.Quad),
-                                {BackgroundColor3 = Neverlose_Main.Theme.Custom.Element}
+                                {BackgroundColor3 = HeraeSd_Main.Theme.Custom.Element}
                             ):Play()
     
                             TweenService:Create(
@@ -6086,8 +6086,8 @@ function Neverlose_Main:Window(config)
         end)
         
         Sec2:Button("Create Config", function()
-            Neverlose_Main:CreateCfg(tostring(Config_Name))
-            Neverlose_Main:Notify({
+            HeraeSd_Main:CreateCfg(tostring(Config_Name))
+            HeraeSd_Main:Notify({
                 Title = "Neverlose",
                 Text = "Created Config: "..tostring(Config_Name)
             })
@@ -6095,36 +6095,36 @@ function Neverlose_Main:Window(config)
 
         local Configs_Drop = Sec1:Dropdown("Select Config", Neverlose_Main:GetConfigNames(), function(t)
             Selected_Config = t
-            Neverlose_Main:Notify({Title = "Neverlose",
+            HeraeSd_Main:Notify({Title = "Neverlose",
                 Text = "Targeted CFG: "..tostring(Selected_Config)
             })
-            Neverlose_Main:SetCFG(tostring(Selected_Config))
+            HeraeSd_Main:SetCFG(tostring(Selected_Config))
         end)
 
         Sec1:Button("Refresh Configs", function()
-            Configs_Drop:Refresh(Neverlose_Main:GetConfigNames())
+            Configs_Drop:Refresh(HeraeSd_Main:GetConfigNames())
         end)
         Sec1:Line()
         Sec1:Button("Load Selected Config", function()
-            Neverlose_Main:Notify({Title = "Neverlose",
+            HeraeSd_Main:Notify({Title = "Neverlose",
                 Text = "Loaded Config: "..tostring(Selected_Config)
             })
-            Neverlose_Main:LoadCfg(tostring(Selected_Config))
+            HeraeSd_Main:LoadCfg(tostring(Selected_Config))
         end)
-        Sec3:Colorpicker("Background", Neverlose_Main.Theme.Custom.Background, function(t)
-            Neverlose_Main.Theme.Custom.Background = t
+        Sec3:Colorpicker("Background", HeraeSd_Main.Theme.Custom.Background, function(t)
+            HeraeSd_Main.Theme.Custom.Background = t
         end)
-        Sec3:Colorpicker("Section", Neverlose_Main.Theme.Custom.Section, function(t)
-            Neverlose_Main.Theme.Custom.Section = t
+        Sec3:Colorpicker("Section", HeraeSd_Main.Theme.Custom.Section, function(t)
+            HeraeSd_Main.Theme.Custom.Section = t
         end)
-        Sec3:Colorpicker("Element", Neverlose_Main.Theme.Custom.Element, function(t)
-            Neverlose_Main.Theme.Custom.Element = t
+        Sec3:Colorpicker("Element", HeraeSd_Main.Theme.Custom.Element, function(t)
+            HeraeSd_Main.Theme.Custom.Element = t
         end)
-        Sec3:Colorpicker("Text", Neverlose_Main.Theme.Custom.Text, function(t)
-            Neverlose_Main.Theme.Custom.Text = t
+        Sec3:Colorpicker("Text", HeraeSd_Main.Theme.Custom.Text, function(t)
+            HeraeSd_Main.Theme.Custom.Text = t
         end)
-        Sec3:Colorpicker("Glow", Neverlose_Main.Theme.Custom.Glow, function(t)
-            Neverlose_Main.Theme.Custom.Glow = t
+        Sec3:Colorpicker("Glow", HeraeSd_Main.Theme.Custom.Glow, function(t)
+            HeraeSd_Main.Theme.Custom.Glow = t
         end)
 
         Sec4:Bind("Toggle Menu", function(t)
@@ -6136,7 +6136,7 @@ function Neverlose_Main:Window(config)
             }
         })
 
-        Neverlose_Main:Notify({
+        HeraeSd_Main:Notify({
             Title = "Welcome",
             Text = "Menu Key | LeftControl",
             Time = 2
@@ -6146,25 +6146,25 @@ function Neverlose_Main:Window(config)
         while task.wait() do
             pcall(function()
                 --// Background \\--
-                KeyFrame.BackgroundColor3 = Neverlose_Main.Theme.Custom.Background
-                MainFrame.BackgroundColor3 = Neverlose_Main.Theme.Custom.Background
-                LeftFrame.BackgroundColor3 = Neverlose_Main.Theme.Custom.Background
+                KeyFrame.BackgroundColor3 = HeraeSd_Main.Theme.Custom.Background
+                MainFrame.BackgroundColor3 = HeraeSd_Main.Theme.Custom.Background
+                LeftFrame.BackgroundColor3 = HeraeSd_Main.Theme.Custom.Background
 
                 TweenService:Create(
                     MainFrameGlow,
                     TweenInfo.new(.4, Enum.EasingStyle.Quad),
-                    {ImageColor3 = Neverlose_Main.Theme.Custom.Glow}
+                    {ImageColor3 = HeraeSd_Main.Theme.Custom.Glow}
                 ):Play()
                 --// Section \\--
 
 
                 --// Element \\
-                -- Neverlose_Main.Theme.Custom.Section
-                -- Neverlose_Main.Theme.Custom.Element
-                -- Neverlose_Main.Theme.Custom.Text
+                -- HeraeSd_Main.Theme.Custom.Section
+                -- HeraeSd_Main.Theme.Custom.Element
+                -- HeraeSd_Main.Theme.Custom.Text
             end)
         end
     end)
     return TabsSec
 end
-return Neverlose_Main
+return HeraeSd_Main
