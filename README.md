@@ -700,6 +700,7 @@ function Neverlose_Main:Window(config)
 
     local MainFrame = Instance.new("Frame")
     local LeftFrame = Instance.new("Frame")
+    local PlayerTabLine = Instance.new("")
     local PlayerImage = Instance.new("ImageLabel")
     local PlayerImageCorner = Instance.new("UICorner")
     local USERID = Instance.new("TextLabel")
