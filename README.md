@@ -835,7 +835,7 @@ function Neverlose_Main:Window(config)
     LeftFrame.Size = UDim2.new(0, 0, 0, 0)
     
     PlayerTabLine.Name = "PlayerTabLine"
-    PlayerTabLine.Parent = LeftFrame
+    PlayerTabLine.Parent = Settings Frame
     PlayerTabLine.BackgroundColor3 = Color3.fromRGB(23, 50, 83)
     PlayerTabLine.BackgroundTransparency = 0.450
     PlayerTabLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
