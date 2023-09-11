@@ -700,7 +700,7 @@ function Neverlose_Main:Window(config)
 
     local MainFrame = Instance.new("Frame")
     local LeftFrame = Instance.new("Frame")
-    local PlayerTabLine = Instance.new("")
+    local PlayerTabLine = Instance.new("Frame")
     local PlayerImage = Instance.new("ImageLabel")
     local PlayerImageCorner = Instance.new("UICorner")
     local USERID = Instance.new("TextLabel")
@@ -835,7 +835,7 @@ function Neverlose_Main:Window(config)
     LeftFrame.Size = UDim2.new(0, 0, 0, 0)
     
     PlayerTabLine.Name = "PlayerTabLine"
-    PlayerTabLine.Parent = SettingsFrame
+    PlayerTabLine.Parent = PlayerTabLine
     PlayerTabLine.BackgroundColor3 = Color3.fromRGB(23, 50, 83)
     PlayerTabLine.BackgroundTransparency = 0.450
     PlayerTabLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
